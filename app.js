@@ -104,8 +104,15 @@ const dragStart = (e) => {
   draggedElement = e.target;
 };
 
+const dragOver = (e) => {
+  e.preventDefault();
+};
+
+
 const allSquares = document.querySelectorAll("#gameboard .square");
 
 allSquares.forEach((square) => {
   square.addEventListener("dragstart", dragStart);
+  square.addEventListener("dragover", dragOver);
+  square.addEventListener("dragdrop", dragDrop);
 });
