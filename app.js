@@ -108,6 +108,9 @@ const dragOver = (e) => {
   e.preventDefault();
 };
 
+const dragDrop = (e) => {
+  e.stopPropagation();
+};
 
 const allSquares = document.querySelectorAll("#gameboard .square");
 
