@@ -81,6 +81,14 @@ const createBoard = () => {
     } else {
       square.classList.add(i % 2 === 0 ? "brown" : "beige");
     }
+    // upper pawns color
+    if (i <= 15) {
+      square.firstChild.firstChild.classList.add("black");
+    }
+    // bottom pawns color
+    if (i >= 48) {
+      square.firstChild.firstChild.classList.add("white");
+    }
     gameBoard.append(square);
   });
 };
