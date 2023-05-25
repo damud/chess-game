@@ -2,6 +2,10 @@ const gameBoard = document.querySelector("#gameboard");
 const playerDisplay = document.querySelector("#player");
 const infoDisplaty = document.querySelector("#info-display");
 
+const width = 8
+let playerGo = "black"
+playerDisplay.textContent = "black"
+
 const startPieces = [
   rook,
   knight,
@@ -110,12 +114,27 @@ const dragOver = (e) => {
 
 const dragDrop = (e) => {
   e.stopPropagation();
-  // e.target.parentNode.append(draggedElement)
+const taken = e.target.classList.contains("piece");
+
+const changePlayer = () => {
+  if (playerGo === "black") {
+    playerGo = "white";
+    playerDisplay.textContent = "white";
+
+  } else {
+    playerGo = "black";
+    playerDisplay.textContent = "black";
+  }
+}
+
+// e.target.parentNode.append(draggedElement)
   // e.target.remove()
-  e.target.append(draggedElement);
+  // e.target.append(draggedElement);
+
+  changePlayer();
 };
 
-const allSquares = document.querySelectorAll("#gameboard .square");
+const allSquares = document.querySelectorAll(".square");
 
 allSquares.forEach((square) => {
   square.addEventListener("dragstart", dragStart);
