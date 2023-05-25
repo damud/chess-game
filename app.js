@@ -110,6 +110,9 @@ const dragOver = (e) => {
 
 const dragDrop = (e) => {
   e.stopPropagation();
+  // e.target.parentNode.append(draggedElement)
+  // e.target.remove()
+  e.target.append(draggedElement);
 };
 
 const allSquares = document.querySelectorAll("#gameboard .square");
@@ -117,5 +120,5 @@ const allSquares = document.querySelectorAll("#gameboard .square");
 allSquares.forEach((square) => {
   square.addEventListener("dragstart", dragStart);
   square.addEventListener("dragover", dragOver);
-  square.addEventListener("dragdrop", dragDrop);
+  square.addEventListener("drop", dragDrop);
 });
