@@ -131,6 +131,20 @@ const checkIfValid = (target) => {
         return true;
       }
       break;
+      case "knight":
+      if (
+        startId + width * 2 + 1 === targetId ||
+        startId + width * 2 - 1 === targetId ||
+        startId + width - 2 === targetId ||
+        startId + width + 2 === targetId ||
+        startId - width * 2 + 1 === targetId ||
+        startId - width * 2 - 1 === targetId ||
+        startId - width - 2 === targetId ||
+        startId - width + 2 === targetId
+      ) {
+        return true;
+      }
+      break;
   }
 };
 const dragDrop = (e) => {
