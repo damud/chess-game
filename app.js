@@ -1,6 +1,6 @@
 const gameBoard = document.querySelector("#gameboard");
 const playerDisplay = document.querySelector("#player");
-const infoDisplaty = document.querySelector("#info-display");
+const infoDisplay = document.querySelector("#info-display");
 
 const width = 8;
 let playerGo = "black";
@@ -112,14 +112,19 @@ const dragOver = (e) => {
   e.preventDefault();
 };
 
+const checkIfValid = (target) => {
+  const targetId =
+    Number(target.getAttribute("square-id")) ||
+    Number(target.parentNode.getAttribute("square-id"));
+  const startId = Number(startPositionId);
+  const piece = draggedElement.id;
+};
 const dragDrop = (e) => {
   e.stopPropagation();
-  console.log("playerGo", playerGo);
-  console.log("e.taget", e.target);
   const correctGo = draggedElement.firstChild.classList.contains(playerGo);
   const taken = e.target.classList.contains("piece");
+  const valid = checkIfValid(e.target);
   const opponentGo = playerGo === "white" ? "black" : "white";
-  console.log("opponentGo" , opponentGo);
   const takenByOpponent = e.target.firstChild?.classList.contains(opponentGo);
 
   const changePlayer = () => {
@@ -134,11 +139,24 @@ const dragDrop = (e) => {
     }
   };
 
-  // e.target.parentNode.append(draggedElement)
-  // e.target.remove()
-  // e.target.append(draggedElement);
-
-  changePlayer();
+  if (correctGo) {
+    if (takenByOpponent && valid) {
+      e.target.parentNode.append(draggedElement);
+      e.target.remove();
+      changePlayer();
+      return;
+    }
+    if (taken && !takenByOpponent) {
+      infoDisplay.textContent = "You cannot go here!";
+      setTimeout(() => (infoDisplay.textContent = ""), 2000);
+      return;
+    }
+    if (valid) {
+      e.target.append(draggedElement);
+      changePlayer();
+      return;
+    }
+  }
 };
 
 const allSquares = document.querySelectorAll(".square");
@@ -152,7 +170,7 @@ allSquares.forEach((square) => {
 const reverseIds = () => {
   const allSquares = document.querySelectorAll(".square");
   allSquares.forEach((square, i) => {
-    square.setAttribute("square-id", width * width - 1 - i);
+    square.setAttribute("square-id", (width * width - 1) - i);
   });
 };
 
