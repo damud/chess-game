@@ -114,8 +114,13 @@ const dragOver = (e) => {
 
 const dragDrop = (e) => {
   e.stopPropagation();
-  console.log(startPositionId);
+  console.log("playerGo", playerGo);
+  console.log("e.taget", e.target);
+  const correctGo = draggedElement.firstChild.classList.contains(playerGo);
   const taken = e.target.classList.contains("piece");
+  const opponentGo = playerGo === "white" ? "black" : "white";
+  console.log("opponentGo" , opponentGo);
+  const takenByOpponent = e.target.firstChild?.classList.contains(opponentGo);
 
   const changePlayer = () => {
     reverseIds();
@@ -147,7 +152,7 @@ allSquares.forEach((square) => {
 const reverseIds = () => {
   const allSquares = document.querySelectorAll(".square");
   allSquares.forEach((square, i) => {
-    square.setAttribute("square-id", (width * width - 1) - i);
+    square.setAttribute("square-id", width * width - 1 - i);
   });
 };
 
