@@ -2,9 +2,9 @@ const gameBoard = document.querySelector("#gameboard");
 const playerDisplay = document.querySelector("#player");
 const infoDisplaty = document.querySelector("#info-display");
 
-const width = 8
-let playerGo = "black"
-playerDisplay.textContent = "black"
+const width = 8;
+let playerGo = "black";
+playerDisplay.textContent = "black";
 
 const startPieces = [
   rook,
@@ -114,20 +114,22 @@ const dragOver = (e) => {
 
 const dragDrop = (e) => {
   e.stopPropagation();
-const taken = e.target.classList.contains("piece");
+  console.log(startPositionId);
+  const taken = e.target.classList.contains("piece");
 
-const changePlayer = () => {
-  if (playerGo === "black") {
-    playerGo = "white";
-    playerDisplay.textContent = "white";
+  const changePlayer = () => {
+    reverseIds();
+    if (playerGo === "black") {
+      playerGo = "white";
+      playerDisplay.textContent = "white";
+    } else {
+      revertIds();
+      playerGo = "black";
+      playerDisplay.textContent = "black";
+    }
+  };
 
-  } else {
-    playerGo = "black";
-    playerDisplay.textContent = "black";
-  }
-}
-
-// e.target.parentNode.append(draggedElement)
+  // e.target.parentNode.append(draggedElement)
   // e.target.remove()
   // e.target.append(draggedElement);
 
@@ -141,3 +143,17 @@ allSquares.forEach((square) => {
   square.addEventListener("dragover", dragOver);
   square.addEventListener("drop", dragDrop);
 });
+
+const reverseIds = () => {
+  const allSquares = document.querySelectorAll(".square");
+  allSquares.forEach((square, i) => {
+    square.setAttribute("square-id", (width * width - 1) - i);
+  });
+};
+
+const revertIds = () => {
+  const allSquares = document.querySelectorAll(".square");
+  allSquares.forEach((square, i) => {
+    square.setAttribute("square-id", i);
+  });
+};
